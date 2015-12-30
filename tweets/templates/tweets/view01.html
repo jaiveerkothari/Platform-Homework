@@ -1,0 +1,5 @@
+<h2>Enter a Twitter Id. A json object of the that user's home timeline will be rendered</h2>
+<form action="{% url 'tweets:homeTimeline' %}" method="get">
+  <label>Twitter_Id </label><input id="t_id" name="t_id" type="text" value="" required>
+  <input type="submit" value="Submit">
+</form> 

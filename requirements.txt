@@ -1,0 +1,2 @@
+# A requirements file for use with the pip package manager
+Django<1.6

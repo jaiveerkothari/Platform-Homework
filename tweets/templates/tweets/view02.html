@@ -1,0 +1,9 @@
+<h2>Send a tweet</h2>
+<form action="{% url 'tweets:sendTweet' %}" method="post">
+{% csrf_token %}
+  <label>Twitter_Id  </label><input id="t_id" name="t_id" type="text" value="" required>
+  <br>
+  <label>Tweet Text  </label><input id="t_text" name="t_text" type="text" value=""  size="140" required>
+  <br> 
+  <input type="submit" value="Submit">
+</form> 
