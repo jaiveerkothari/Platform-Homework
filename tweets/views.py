@@ -70,7 +70,7 @@ def homeTimeline(request):
 
 	if not (isValid(in_twitter_id)):
 		d={}
-		d['error']="twitter id given is not valid"
+		d['error']="twitter id given is not valid. must be an integer"
 		l.append(d)
 	else:
 		t=str(in_twitter_id).strip()

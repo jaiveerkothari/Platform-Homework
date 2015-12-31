@@ -1,5 +1,16 @@
-<h2>Enter a Twitter Id. A json object of the that user's home timeline will be rendered</h2>
-<form action="{% url 'tweets:homeTimeline' %}" method="get">
-  <label>Twitter_Id </label><input id="t_id" name="t_id" type="text" value="" required>
-  <input type="submit" value="Submit">
-</form> 
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'tweets/style.css' %}" />
+
+<div class="container">
+	<div class="titles">
+		<h2>Enter a Twitter Id. A json object of that user's home timeline will be rendered</h2>
+	</div>
+	
+	<form action="{% url 'tweets:homeTimeline' %}" method="get">
+	  <label>Twitter_Id </label><input id="t_id" name="t_id" type="text" value="" required>
+	  <input type="submit" value="Submit">
+	</form> 
+
+</div>
+
+

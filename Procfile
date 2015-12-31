@@ -1,0 +1,1 @@
+web: gunicorn Platform-Homework.wsgi --log-file -

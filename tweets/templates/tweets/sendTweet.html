@@ -1,9 +1,25 @@
-<h1>Result</h1>
-{% if l %}
-<p><strong>There was an error {{ l }}</strong></p>
-{% else %}
-<p><strong>Tweet successfully sent</strong></p>
-{% endif %}
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'tweets/style.css' %}" />
+
+<div class="container">
+
+	<div class="titles">
+	<h1>Result</h1>
+	</div>
+
+	<div>
+
+	{% if l %}
+	<p>There was an error- {{ l }}</p>
+	{% else %}
+	<p>Tweet successfully sent</p>
+	{% endif %}
+
+	</div>
+
+</div>
+
+
 
 
 

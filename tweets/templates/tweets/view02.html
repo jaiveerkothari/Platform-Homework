@@ -1,4 +1,11 @@
-<h2>Send a tweet</h2>
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'tweets/style.css' %}" />
+<div class="container">
+
+<div class-="title">
+	<h2>Send a tweet</h2>
+</div>
+
 <form action="{% url 'tweets:sendTweet' %}" method="post">
 {% csrf_token %}
   <label>Twitter_Id  </label><input id="t_id" name="t_id" type="text" value="" required>
@@ -7,3 +14,5 @@
   <br> 
   <input type="submit" value="Submit">
 </form> 
+
+</div>
