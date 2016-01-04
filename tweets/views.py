@@ -1,8 +1,6 @@
 from django.shortcuts import render
-from django.template import loader
 from json import loads
 import json
-# Create your views here.
 from django.http import HttpResponse
 from .models import TwitterAccounts
 import oauth2
@@ -34,39 +32,18 @@ def isValid(t_id):
 	str_id=str(t_id).strip()
 	return str_id.isdigit()
 
-	# if not (type(t_id) == int):
-	# 	# input id is not a integer. input is invalid
-
-	# user=TwitterAccounts.objects.filter(twitter_id=in_twitter_id)
 
 def index(request):
-	template=loader.get_template('tweets/index.html')
 	context={}
 	return render(request, 'tweets/index.html', context)
 
-
-#### create 1 view url that takes input, and then make it direct to a restful url that returns the json    
+  
 
 
 def homeTimeline(request):
-	# raise a 404 if id doesnt exist, or just return a json with an error?
-	#initially lets make this return the timeline for the given user. no input at this stage
-
-	#get oath token and scret from the db instead of hardcoding
-	#in_twitter_id=2305278779
-	#print "request.GET is ......",request.GET
-	#print "request.GET['t_id'] is ...",request.GET['t_id']
-	
 	in_twitter_id=request.GET.get('t_id',0)
 
-	#perform validation check
-
 	l=[]
-	print "type is " ,type(in_twitter_id)
-	# validate the input 
-	
-
-	# error if in_twitter_id is not an int. so check that first. 
 
 	if not (isValid(in_twitter_id)):
 		d={}
@@ -75,14 +52,11 @@ def homeTimeline(request):
 	else:
 		t=str(in_twitter_id).strip()
 		u1=TwitterAccounts.objects.filter(twitter_id=t)
-		print "firs check u1 is ",u1, len(u1)
 		
 		if len(u1)<=0:
-			print "error "
 			d={}
 			d['error']="given twitter id does not exist"
 			l.append(d)
-			print "u1 is ",u1
 		else:
 			oauth_secret=u1[0].oauth_secret
 			oauth_token=u1[0].oauth_token
@@ -91,39 +65,25 @@ def homeTimeline(request):
 
 			for obj in home_timeline_json:
 				d={}
-				# screen name, date, text, prof img
 				d['text']=obj['text']
 				d['screen_name']=obj['user']['screen_name']
 				d['profile_img_url']=obj['user']['profile_image_url']
 				d['unix_time']=getUnixTime(obj['created_at'])
-				print d
 				l.append(d)
-
-
-			print len(home_timeline_json), len(l)
 	data=json.dumps(l)
 	
-
-	
-	#print home_timeline
 	return HttpResponse(data,content_type="application/json")
 
 def sendTweet(request):
-	# check if tweet text is valid. 140 char max, etc other restritions
-	# do dict.get() instead !!!
 	in_twitter_text=request.POST.get('t_text',0)
 	in_twitter_id=request.POST.get('t_id',0)
 	l=[]
 	d={}
 	context={}
 	if not (isValid(in_twitter_id)):
-		#error
-		print "error id not valid"
-		
 		d['error']="given twitter id does not exist"
 		l.append(d)
 	elif in_twitter_text==0:
-		print "error getting the form fields"
 		d['error']="could not get the form input"
 		l.append(d)
 	else:
@@ -137,14 +97,11 @@ def sendTweet(request):
 			oauth_secret=u1[0].oauth_secret
 			oauth_token=u1[0].oauth_token
 			post_tweet = oauth_req( 'https://api.twitter.com/1.1/statuses/update.json?', oauth_token, oauth_secret ,"POST",status_str)
-			#return HttpResponse(post_tweet,content_type="application/json")
 			return render(request,'tweets/sendTweet.html',context)
 
 	data=json.dumps(l)
-	#return HttpResponse(data,content_type="application/json")
 	context={'l':l}
 	return render(request,'tweets/sendTweet.html',context)
-	# make a common function to check if a twitterid input is valid and if it exists. django form validors?
 
 	
 
