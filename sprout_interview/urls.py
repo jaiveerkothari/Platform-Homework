@@ -6,8 +6,9 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'sprout_interview.views.home', name='home'),
+    #url(r'^$', sprout_interview.views.home, name='home'),
     # url(r'^sprout_interview/', include('sprout_interview.foo.urls')),
+    url(r'^$', 'sprout_interview.views.index', name='index'),
 
     url(r'^tweets/', include('tweets.urls', namespace="tweets")),
 

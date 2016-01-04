@@ -22,6 +22,9 @@ def oauth_req(url, key, secret, http_method="GET", post_body="", http_headers=No
  
 
 def getUnixTime(utc_time):
+	"""
+	convert utc time to unix time
+	"""
 	temp=time.strptime(utc_time, "%a %b %d %H:%M:%S +0000 %Y")
 	return calendar.timegm(temp)
 
